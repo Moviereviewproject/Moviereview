@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import API from '../API';
 import Card from '../components/common/Card';
 import Footer from '../components/common/Footer';
 import Header from '../components/common/Header';
 import { push } from 'connected-react-router';
+import { getMovies } from '../reducks/movies/selectors';
 const api = new API();
 const Category = () => {
     const [categoryAction, setCategoryAction] = useState(null);
     const [categoryComedy, setCategoryComedy] = useState(null);
     const [categoryDrama, setCategoryDrama] = useState(null);
     const [categoryHorror, setCategoryHorror] = useState(null);
-    const dispatch = useDispatch();
+
+    const selector = useSelector(state => state);
+    const movies = getMovies(selector);
+
     useEffect(() => {
         api.getMovies({ category_id: '1' })
             .then(movies => {
@@ -50,15 +54,14 @@ const Category = () => {
                     <h1 id="actions" class="section-heading m-20 p-10">
                         Actions
                     </h1>
+                    
                 </div>
                 {categoryAction && categoryAction.results.length > 0 ? (
                     <div class="grid">
                         {categoryAction.results.map(movie => (
-                            <Card
-                                movie={movie}
-                                
-                            />
+                            <Card movie={movie} />
                         ))}
+                        
                     </div>
                 ) : (
                     <div class="no-post">

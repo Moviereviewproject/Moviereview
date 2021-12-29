@@ -28,7 +28,7 @@ const Card = ({ movie }) => {
                     class="cardimage"
                     src={movie.image}
                     alt=""
-                    onClick={() => dispatch(push({ pathname: '/preview', state: { movieId: movie.id } }))}
+                    // onClick={() => dispatch(push({ pathname: '/preview', state: { movieId: movie.id } }))}
                 />
                 <div class="carddetails">
                     <p>{movie.name}</p>
